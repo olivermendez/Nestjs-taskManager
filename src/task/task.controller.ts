@@ -8,6 +8,7 @@ import {
   Param,
   Post,
   Put,
+  Req,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 
@@ -18,7 +19,20 @@ export class TaskController {
   constructor(private readonly taskServices: TaskService) {}
 
   @Get()
-  async getAllTask() {
+  async getAllTask(@Req() request: Request) {
+    // Acceder a la URL de la solicitud
+    console.log(request.url);
+
+    // Acceder al método HTTP de la solicitud (GET, POST, etc.)
+    console.log(request.method);
+
+    // Acceder a los encabezados de la solicitud
+    console.log(request.headers);
+
+    // Acceder al cuerpo de la solicitud (útil en métodos POST o PUT)
+    // Asegúrate de que tu aplicación use middleware para analizar el cuerpo de la solicitud, como bodyParser
+    console.log(request.body);
+
     return this.taskServices.getAllTasks();
   }
 
@@ -36,7 +50,7 @@ export class TaskController {
     }
 
     return {
-      success: true,
+      success: 200,
       task: task,
     };
   }
